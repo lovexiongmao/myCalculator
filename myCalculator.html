@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style type="text/css">
+            .calculator {
+                margin: 0 auto;
+                width: 400px;
+                height: 400px;
+                border: 1px dotted #000;
+            }
+
+             .div1 {
+                margin: 40px 0 0 49px;
+                width: 300px;
+                height: 50px;
+                border: 1px dotted #000;
+            }
+
+            .tab {
+                width: 300px;
+                height: 250px;
+                border: 1px solid #000;
+                background-color: #fff;
+                margin: 0 auto;
+            }
+
+            .tab td {
+                border: 1px solid #000;
+                border-top: 0;
+                border-left: 0;
+                text-align: center;
+                font-weight: border;
+                font-size: 19px;
+                cursor: hand;
+            }
+
+            .title {
+                font-size: 30px;
+                font-weight: bolder;
+                margin-left: 45px;
+                margin-bottom: 80px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="calculator" id="jisuan">
+            <span class="title">计算器</span><span class="info">(计算完以后按点击<font color="red"; font-weight="bolder">r</font>进行清除)</span>
+            <input type="text" disabled="disabled" class="div1" id="abc" value="0"/>
+            <table class="tab">
+                <tr><td onclick="fun19test(this)">1</td><td onclick="fun19test(this)">2</td><td onclick="fun19test(this)">3</td><td onclick="fun19test(this)">+</td></tr>
+                <tr><td onclick="fun19test(this)">4</td><td onclick="fun19test(this)">5</td><td onclick="fun19test(this)">6</td><td onclick="fun19test(this)">-</td></tr>
+                <tr><td onclick="fun19test(this)">7</td><td onclick="fun19test(this)">8</td><td onclick="fun19test(this)">9</td><td onclick="fun19test(this)">*</td></tr>
+                <tr><td onclick="fun19test(this)">r</td><td onclick="fun19test(this)">0</td><td onclick="fun19test(this)">=</td><td onclick="fun19test(this)">/</td></tr>
+            </table>
+        </div>
+
+        <script type="text/javascript">
+            function fun19(){
+                var counter = document.getElementById("jisuan")
+                counter.style.display = "block";
+            }
+
+            var arr = [];
+            var result = 0;
+            var strres;
+
+            function fun19test(obj){ 
+                if(obj.innerText == "r"){
+                    var inputbox = document.getElementById("abc");
+                    inputbox.value = 0;
+                    arr.splice(0);
+                }
+                if(obj.innerText != "=" && obj.innerText != "r"){   
+                    arr.push(obj.innerText);
+                    var inputbox = document.getElementById("abc");
+                    str = arr.toString();
+                    strres = str.replace(/,/img,"");
+                    inputbox.value = strres;
+                }else if(obj.innerText != "r" && obj.innerText == "="){
+                    var reg = /\d+/img;
+                    var reg1 = /\D/img;
+                    res = strres.match(reg);
+                    operobj = strres.match(reg1);
+                    var oper = operobj.toString();
+                    switch (oper){
+                        case "+":
+                             result = parseInt(res[0])+parseInt(res[1]);
+                        break;
+                        case "-":
+                             result = parseInt(res[0])-parseInt(res[1]);
+                        break;
+                        case "*":
+                             result = parseInt(res[0])*parseInt(res[1]);
+                        break;
+                        case "/":
+                             result = parseInt(res[0])/parseInt(res[1]);
+                        break;
+                        default:
+                            alert("你的输入有误");
+                    }
+                    var inputbox = document.getElementById("abc")
+                    inputbox.value = result;
+                }
+            }
+        </script>
+
+    </body>
+</html>
